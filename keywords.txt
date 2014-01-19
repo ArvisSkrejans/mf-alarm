@@ -1,0 +1,8 @@
+Alarm		KEYWORD1
+probe		KEYWORD2
+isArmed		KEYWORD2
+buzzStatus	KEYWORD2
+startAlarm	KEYWORD2
+stopAlarm	KEYWORD2
+blinkStatusLed	KEYWORD2
+glowStatusLed	KEYWORD2
