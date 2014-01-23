@@ -11,23 +11,27 @@
 class Alarm
 {
 public:
-  Alarm(int pirSensorPin, int magSwitchPin, int buzzerPin, int statusLedPin, int armedPin, int standbyPin);
+  Alarm(int pirSensorPin, int magSwitchPin, int buzzerPin, int statusLedPin, int armedPin);
   bool probe();
-  bool isArmed();
-  bool buzzStatus();
+
   void startAlarm();
   void stopAlarm();
+
   void blinkStatusLed();
   void glowStatusLed();
+
+  void warningBeep();
+
+  bool isArmed();
+  void setArmedStatus();
+  bool armedStatusChanged();
 private:
   int _pirSensorPin;
   int _magSwitchPin;
   int _buzzerPin;
   int _statusLedPin;
   int _armedPin;
-  int _standbyPin;
+
 };
 
 #endif
-
-

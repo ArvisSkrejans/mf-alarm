@@ -8,28 +8,25 @@
 
 int ledState = LOW;             // ledState used to set the LED
 long previousMillis = 0;        // will store last time LED was updated
-long blinkInterval = 1000; 	//blink interval
+long blinkInterval = 1000;  //blink interval
+bool armedStatus = false; // armed status
 
 /*
 Initializes defined pins, sets output modes and pin access
  */
-Alarm::Alarm(int pirSensorPin, int magSwitchPin, int buzzerPin, int statusLedPin, int armedPin, int standbyPin)
+Alarm::Alarm(int pirSensorPin, int magSwitchPin, int buzzerPin, int statusLedPin, int armedPin)
 {
   pinMode(pirSensorPin, INPUT);
   pinMode(magSwitchPin, INPUT);
   pinMode(buzzerPin, OUTPUT);
   pinMode(statusLedPin, OUTPUT);
   pinMode(armedPin, OUTPUT);
-  pinMode(standbyPin, OUTPUT);
-
 
   _pirSensorPin = pirSensorPin;
   _magSwitchPin = magSwitchPin;
   _buzzerPin = buzzerPin;
   _statusLedPin = statusLedPin;
   _armedPin = armedPin;
-  _standbyPin = standbyPin;
-
 
 }
 /*
@@ -41,17 +38,39 @@ bool Alarm::probe(){
 
 }
 
+void Alarm::setArmedStatus(){
+  armedStatus = Alarm::isArmed();
+}
+
 bool Alarm::isArmed()
 {
-  return (digitalRead(_armedPin) == HIGH) ? true : false;
+  return (analogRead(_armedPin) > 30) ? true : false;
 
 }
 
-bool Alarm::buzzStatus(){
+bool Alarm::armedStatusChanged(){
 
-  return (digitalRead(_buzzerPin) == HIGH) ? true : false;
+  if(armedStatus!=Alarm::isArmed()){
+    armedStatus = Alarm::isArmed();
+    return true;
+  }
+  else{
+    return false;
+  }
 
 }
+
+void Alarm::warningBeep(){
+
+  for (int i=0; i <= 2; i++){
+    tone(2, 2000); 
+    delay(500);
+    noTone(2);
+    delay(500);
+  } 
+
+}
+
 void Alarm::startAlarm(){
   if(digitalRead(_buzzerPin) == LOW){
     digitalWrite(_buzzerPin, HIGH);
@@ -86,9 +105,3 @@ void Alarm::glowStatusLed(){
   }
 
 }
-
-
-
-
-
-
