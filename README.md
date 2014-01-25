@@ -1,7 +1,7 @@
 mf-alarm
 ========
 
-Multifunctional Arduino based alarm system
+Multifunctional Arduino based burglar alarm system
 
 System is able to monitor defined array of sensors and operate various alarm devices when neccessary.
 
