@@ -5,6 +5,7 @@
 
 #include "Arduino.h"
 #include "Alarm.h"
+#include <SCoop.h>
 
 int ledState = LOW;             // ledState used to set the LED
 long previousMillis = 0;        // will store last time LED was updated
@@ -20,7 +21,7 @@ Alarm::Alarm(int pirSensorPin, int magSwitchPin, int buzzerPin, int statusLedPin
   pinMode(magSwitchPin, INPUT);
   pinMode(buzzerPin, OUTPUT);
   pinMode(statusLedPin, OUTPUT);
-  pinMode(armedPin, OUTPUT);
+  pinMode(armedPin, INPUT);
 
   _pirSensorPin = pirSensorPin;
   _magSwitchPin = magSwitchPin;
@@ -34,7 +35,7 @@ Probes the sensor status and sets alarm if neccessary
  */
 bool Alarm::probe(){
 
-  return (digitalRead(_pirSensorPin) == HIGH || digitalRead(_magSwitchPin) == LOW) ? true : false;
+  return (digitalRead(_pirSensorPin) == 1 || digitalRead(_magSwitchPin) == 0) ? true : false;
 
 }
 
@@ -44,7 +45,7 @@ void Alarm::setArmedStatus(){
 
 bool Alarm::isArmed()
 {
-  return (analogRead(_armedPin) > 30) ? true : false;
+  return (digitalRead(_armedPin) == 1) ? true : false;
 
 }
 
@@ -63,10 +64,11 @@ bool Alarm::armedStatusChanged(){
 void Alarm::warningBeep(){
 
   for (int i=0; i <= 2; i++){
+
     tone(2, 2000); 
-    delay(500);
+    sleep(200);
     noTone(2);
-    delay(500);
+    sleep(200);
   } 
 
 }

@@ -1,17 +1,31 @@
+#include <SCoop.h>
 #include <Alarm.h>
 
-//set initial setup values
-bool alarmStatus = false;
-static unsigned int alarmTimeout = 60;
-//initialize alarm library
-Alarm alarm(0, 1, 2, 13, A0);
+Alarm alarm(A0, A1, 2, 13, 7);
 
-void setup() {
+volatile bool alarmStatus = false;
+
+defineTask(Task1)
+
+void Task1::setup() { 
+
+};
+void Task1::loop() {
   alarm.setArmedStatus();
+
+  (alarmStatus == true) ? alarm.warningBeep() : alarm.stopAlarm();
+  yield(); 
+};
+
+defineTask(Task2)
+
+void::Task2::setup()
+
+{ 
+
 }
 
-void loop() {
-
+void Task2::loop(){
   if(alarm.isArmed()){
     alarmStatus = alarm.probe();
     alarm.glowStatusLed();
@@ -20,6 +34,7 @@ void loop() {
     }
 
   }
+
   else{
     alarmStatus = false;
     alarm.blinkStatusLed();
@@ -27,11 +42,15 @@ void loop() {
       alarm.warningBeep();
     }
   }
-
-  (alarmStatus == true) ? alarm.startAlarm() : alarm.stopAlarm();
-
-
+  yield(); 
 }
+void setup() {  
+
+  mySCoop.start(); 
+}
+void loop() { 
 
 
+  yield(); 
+}
 
