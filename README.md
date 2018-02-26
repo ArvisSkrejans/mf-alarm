@@ -7,7 +7,7 @@ System is able to monitor defined array of sensors and operate various alarm dev
 
 Currently in a very alpha stage - some scaffolding code that has only the basic logic parts covered, however tested on real hardware and currently accepting one PIR sensor and one magnetic Reed door switch.
 
-Uses Scoop scheduler: https://code.google.com/p/arduino-scoop-cooperative-scheduler-arm-avr/
+Uses Scoop scheduler: https://code.google.com/p/arduino-scoop-cooperative-scheduler-arm-avr/  https://github.com/fabriceo/SCoop
 
 TODO:
 
