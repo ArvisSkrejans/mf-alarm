@@ -1,6 +1,6 @@
-Alarm		KEYWORD1
-probe		KEYWORD2
-isArmed		KEYWORD2
+Alarm	KEYWORD1
+probe	KEYWORD2
+isArmed	KEYWORD2
 buzzStatus	KEYWORD2
 startAlarm	KEYWORD2
 stopAlarm	KEYWORD2
